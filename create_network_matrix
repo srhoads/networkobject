@@ -1,4 +1,4 @@
-DATA <- read.csv("/Users/LOCATION/FILE.csv") # for mac
+DATA <- read.csv("/Users/LOCATION/FILE.csv") # for mac (for pc, do something like read.csv("C:/USERNAME/FILE.csv"
 names(DATA) # check which columns are relevant to the network you're making
 NETWORK_DATA <- DATA[ , c(1:21)] # in this adaptation I have 10 possible ties per participant, so DATA[ , c[1]] participant ID, DATA[ , c(2:11)] are tie names, DATA[ , c(12:21)] are tie closeness scores (eventually weight)
 NETWORK_DATA[TIE1==""] <- NA # blank is NA

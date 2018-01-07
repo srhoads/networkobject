@@ -1,6 +1,8 @@
 DATA <- read.csv("/Users/LOCATION/FILE.csv") # for mac (for pc, do something like read.csv("C:/USERNAME/FILE.csv"
 names(DATA) # check which columns are relevant to the network you're making
-NETWORK_DATA <- DATA[ , c(1:21)] # in this adaptation I have 10 possible ties per participant, so DATA[ , c[1]] participant ID, DATA[ , c(2:11)] are tie names, DATA[ , c(12:21)] are tie closeness scores (eventually weight)
+
+# install.packages(dplyr) download package dplyr if you don't have it
+NETWORK_DATA <- dplyr::select(DATA[ , c(TIE1:TIE10, TIE1_CLOSENESS:TIE10_CLOSENESS)]) # in this adaptation I have 10 possible ties per participant, so DATA[ , c[1]] participant ID, DATA[ , c(2:11)] are tie names, DATA[ , c(12:21)] are tie closeness scores (eventually weight)
 NETWORK_DATA[TIE1==""] <- NA # blank is NA
 NETWORK_LONG <- melt(NETWORK_DATA, na.rm=FALSE, id.vars="ID",   # get relevant variables and melt them into 3 columns!
                 measure.vars=c("TIE1", "TIE2", "TIE3", 
@@ -12,8 +14,8 @@ NETWORK_LONG <- melt(NETWORK_DATA, na.rm=FALSE, id.vars="ID",   # get relevant v
                                "TIE1_CLOSENESS"))
 1ST_HALF <- nrow(NETWORK_LONG)/2
 2ND_HALF <- nrow(NETWORK_LONG) 
-TIES_LONG <- subset(NETWORK_LONG[1:1ST_HALF, ])
-TIES_LONG$weight <- NETWORK_LONG[1ST_HALF+1:2ND_HALF, 3] # column 3 is weight
+TIES_LONG <- subset(NETWORK_LONG[1:(nrow(NETWORK_LONG)/2), ])
+TIES_LONG$weight <- NETWORK_LONG[(nrow(NETWORK_LONG)/2)+1:nrow(NETWORK_LONG), 3] # column 3 is weight
 names(TIES_LONG) <- c("from", "variable", "to", "weight") # from (node) to (node)
 TIES_LONG_CENT <- subset(TIES_LONG, select=c("from","to","weight")) # don't need "variable" column
 

@@ -7,13 +7,13 @@ names(DATA) # check which columns are relevant to the network you're making
 NETWORK_DATA <- dplyr::select(DATA[ , c(TIE1:TIE10, TIE1_CLOSENESS:TIE10_CLOSENESS)]) # in this adaptation I have 10 possible ties per participant, so DATA[ , c[1]] participant ID, DATA[ , c(2:11)] are tie names, DATA[ , c(12:21)] are tie closeness scores (eventually weight)
 NETWORK_DATA[TIE1==""] <- NA # blank is NA
 NETWORK_LONG <- melt(NETWORK_DATA, na.rm=FALSE, id.vars="ID",   # get relevant variables and melt them into 3 columns!
-                     measure.vars=c("TIE1", "TIE2", "TIE3", 
+                     measure.vars=c("TIE1", "TIE2", "TIE3", # whatever variables you have for the edges themselves
                                     "TIE4", "TIE5", "TIE6", "TIE7",
                                     "TIE8", "TIE9", "TIE10",
-                                    "TIE1_CLOSENESS","TIE1_CLOSENESS","TIE1_CLOSENESS",
-                                    "TIE1_CLOSENESS","TIE1_CLOSENESS","TIE1_CLOSENESS",
-                                    "TIE1_CLOSENESS", "TIE1_CLOSENESS","TIE1_CLOSENESS", 
-                                    "TIE1_CLOSENESS"))
+                                    "TIE1_CLOSENESS","TIE2_CLOSENESS","TIE3_CLOSENESS", # whatever variables you have for weight
+                                    "TIE4_CLOSENESS","TIE5_CLOSENESS","TIE6_CLOSENESS",
+                                    "TIE7_CLOSENESS", "TIE8_CLOSENESS","TIE9_CLOSENESS", 
+                                    "TIE10_CLOSENESS"))
 1ST_HALF <- nrow(NETWORK_LONG)/2
 2ND_HALF <- nrow(NETWORK_LONG) 
 TIES_LONG <- subset(NETWORK_LONG[1:(nrow(NETWORK_LONG)/2), ])
